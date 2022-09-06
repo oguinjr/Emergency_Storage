@@ -17,9 +17,6 @@ class Water:
             for line in csv_reader:
                 self.dic_list.append({"type": line["type"], "medium": line["medium"], "medium_num": line["medium_num"], "expiration": line["expiration"]})
 
-
-
-    # Getter
     def get_dic_list(self):
         return self.dic_list
 
@@ -33,8 +30,6 @@ class Water:
             elif entry['medium'] == "water_brick":
                 total += float(int(entry["medium_num"]) * coeffs["BRICK_VOL"])
         return round(total)
-
-
 
     def remove(self, match, rmv):
         dic_list = self.get_dic_list()
