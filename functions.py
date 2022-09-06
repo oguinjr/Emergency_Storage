@@ -12,7 +12,7 @@ coeffs = {'TALL_CAN_VOL': 0.1238483, 'SHORT_CAN_VOL': 0.09007152, 'BRICK_VOL': 3
 class Water:
     def __init__(self):
         self.dic_list = []
-        with open("##TODO_FIX_ME.csv##", 'r', newline='') as csv_file:
+        with open("supply.csv", 'r', newline='') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for line in csv_reader:
                 self.dic_list.append({"type": line["type"], "medium": line["medium"], "medium_num": line["medium_num"], "expiration": line["expiration"]})
