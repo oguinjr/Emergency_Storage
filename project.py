@@ -7,7 +7,7 @@ import sys
 from functions import Water
 
 
-M = "##TODO_FIX_ME##.csv"
+M = "supply.csv"
 mediums = ["tall_can", "short_can", "water_brick"]
 types = ["water", "food"]
 breakline = "\n-----------------------------------------------------------------\n"
