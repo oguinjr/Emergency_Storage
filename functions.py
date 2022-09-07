@@ -42,14 +42,6 @@ class Water:
                             line["medium_num"] = int(line["medium_num"]) - rmv
                             self.rewrite_file(dic_list)
                             break
-                        else:
-                            continue
-                    else:
-                        continue
-                else:
-                    continue
-            else:
-                continue
 
     ################### THIS DOES NOT ALLOW FOR MULTIPLE DATES THAT ARE THE SAME ######################
     def next_exp(self):
