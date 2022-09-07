@@ -8,17 +8,15 @@ from datetime import timedelta
 
 class Water:
     VOLUMES = {'TALL_CAN_VOL': 0.1238483, 'SHORT_CAN_VOL': 0.09007152, 'BRICK_VOL': 3.5}
-
-    def __init__(self):
+    def __init__(self, filename="/workspaces/22947782/project/supply.csv"):
         self.dic_list = []
-        with open("/workspaces/22947782/project/supply.csv", 'r', newline='') as csv_file:
+        self.filename = filename
+        with open(filename, 'r', newline='') as csv_file:
             csv_reader = csv.DictReader(csv_file)
             for line in csv_reader:
                 self.dic_list.append({"type": line["type"], "medium": line["medium"], "medium_num": line["medium_num"], "expiration": line["expiration"]})
 
 
-
-    # Getter
     def get_dic_list(self):
         return self.dic_list
 
