@@ -3,13 +3,8 @@ import datetime
 from datetime import datetime
 from datetime import date
 from datetime import timedelta
-import sys
 from functions import Water
 
-
-M = "supply.csv"
-mediums = ["tall_can", "short_can", "water_brick"]
-types = ["water", "food"]
 breakline = "\n-----------------------------------------------------------------\n"
 section_break = f"{breakline}{breakline}"
 
@@ -19,56 +14,44 @@ def main():
 3 - Add Inventory{breakline}4 - Remove Inventory{breakline}5 - Get Data Breakdown{breakline}\
 e - EXIT{breakline}
         """)
-    print(breakline)
-    choice = input("Enter the coresponding number to the desired action item -> ")
-    print(breakline)
-    print()
+    print(section_break)
     # if choice 1 : Display current total
-    if choice == str('1'):
-        print(f"{breakline}There is a total of {get_total()} gal currently stored{breakline}")
-        b_continue()
-    # if choice 2 : Return the closest expiration data, medium, amount and days until
-    elif choice == str('2'):
-        closest_date_obj, medium, amount, days = next_expiration()
-        print(f"{breakline}On {str(closest_date_obj)} there are {amount} of {medium}  expiring.\nThat is in {days} days!{breakline}")
-        b_continue()
-    # if choice 3 : add supply to csv and print new total
-    elif choice == str('3'):
-        print()
-        add_supply()
-        print(breakline)
-        print(f"Now there are {get_total()} gallons stored{breakline}")
-        b_continue()
-    # if choice 4: remove supply
-    elif choice == str('4'):
-        print()
-        remove_supply()
-        print()
-        print(f"Now there is {get_total()} total gallons stored.{breakline}")
-        b_continue()
-    # if choice 5: data breakdown
-    elif choice == str('5'):
-        print()
-        total_water, pppd, days_allowed, alert = data_breakdown()
-        print(f"Right now there is a total of {total_water} gallons of water in storage\n\n")
-        print(f"That will provide {pppd} gal per person for two weeks.\n\n")
-        print(f"With the current supply the water will last for {days_allowed} days.\n\n")
-        print(f"{alert}\n\n")
-        b_continue()
-
-    # if choice e : exit program
-    elif choice == str('e'):
-        print("Goodbye")
-        sys.exit()
-    else:
-        print("Please Enter a valid number")
-        b_continue()
-    main()
-
-def b_continue():
-    {breakline}
-    input("Press Enter to Continue")
-
+    while True:
+        choice = input("Enter the number coresponding to the desired action --> ")
+        if choice == '1':
+            print(f"{breakline}There is a total of {get_total()} gal currently stored{breakline}")
+        # if choice 2 : Return the closest expiration data, medium, amount and days until
+        elif choice == '2':
+            closest_date_obj, medium, amount, days = next_expiration()
+            print(f"{breakline}On {str(closest_date_obj)} there are {amount} of {medium}  expiring.\nThat is in {days} days!{breakline}")
+        # if choice 3 : add supply to csv and print new total
+        elif choice == '3':
+            print()
+            add_supply()
+            print(breakline)
+            print(f"Now there are {get_total()} gallons stored{breakline}")
+        # if choice 4: remove supply
+        elif choice == '4':
+            print()
+            remove_supply()
+            print()
+            print(f"Now there is {get_total()} total gallons stored.{breakline}")
+        # if choice 5: data breakdown
+        elif choice == '5':
+            print()
+            total_water, pppd, days_allowed, alert = data_breakdown()
+            print(f"Right now there is a total of {total_water} gallons of water in storage\n\n")
+            print(f"That will provide {pppd} gal per person for two weeks.\n\n")
+            print(f"With the current supply the water will last for {days_allowed} days.\n\n")
+            print(f"{alert}\n\n")
+        # if choice e : exit program
+        elif choice == 'e':
+            print("Goodbye\n")
+            break
+        else:
+            print("Please Enter a valid number")
+        {breakline}
+        input("Press Enter to Continue")
 
 def get_total():
     water = Water()
@@ -80,12 +63,13 @@ def next_expiration():
     return water.next_exp()
 
 
-
 def add_supply():
+    TYPES = ["water", "food"]
+    MEDIUMS = ["tall_can", "short_can", "water_brick"]
     inp_type = ((input("Type: ")).lower()).strip()
-    if inp_type in types:
+    if inp_type in TYPES:
         inp_med = ((input("Medium: ")).lower()).strip()
-        if inp_med in mediums:
+        if inp_med in MEDIUMS:
             med_amt = int(((input("Amount to add: "))).strip())
             inp_exp = (input("Expiration: ")).strip()
             add_line = dict(type=inp_type, medium=inp_med, medium_num=med_amt, expiration=inp_exp)
