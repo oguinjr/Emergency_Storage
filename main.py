@@ -64,34 +64,27 @@ def next_expiration():
 
 
 def add_supply():
-    TYPES = ["water", "food"]
     MEDIUMS = ["tall_can", "short_can", "water_brick"]
-    inp_type = ((input("Type: ")).lower()).strip()
-    if inp_type in TYPES:
-        inp_med = ((input("Medium: ")).lower()).strip()
-        if inp_med in MEDIUMS:
-            med_amt = int(((input("Amount to add: "))).strip())
-            inp_exp = (input("Expiration: ")).strip()
-            add_line = dict(type=inp_type, medium=inp_med, medium_num=med_amt, expiration=inp_exp)
-            water = Water()
-            file = water.get_dic_list()
-            file.append(add_line)
-            water.rewrite_file(file)
-        else:
-            print("Please enter a valid medium")
-            add_supply()
+    inp_med = ((input("Medium: ")).lower()).strip()
+    if inp_med in MEDIUMS:
+        med_amt = int(((input("Amount to add: "))).strip())
+        inp_exp = (input("Expiration: ")).strip()
+        add_line = dict(medium=inp_med, medium_num=med_amt, expiration=inp_exp)
+        water = Water()
+        file = water.get_supply_list()
+        file.append(add_line)
+        water.rewrite_file(file)
     else:
-        print("Please Enter \"water\" or \"food\" as \"type\"")
+        print("Please enter a valid medium")
         add_supply()
 
 
 def remove_supply():
-    inp_type = input("Type: ")
     inp_med = input("Medium: ")
     med_amt = int(input("Amount Before: "))
     rmv = int(input("Removed: "))
     inp_exp = input("Expiration: ")
-    match = {'type': inp_type, 'medium': inp_med, 'medium_num': med_amt, 'expiration': inp_exp}
+    match = {'medium': inp_med, 'medium_num': med_amt, 'expiration': inp_exp}
 
     water = Water()
     water.remove(match, rmv)
@@ -113,8 +106,6 @@ def data_breakdown():
         alert = f"Supply goal reached"
 
     return total_water, pppd, days_allowed, alert
-
-
 
 
 if __name__ == "__main__":
