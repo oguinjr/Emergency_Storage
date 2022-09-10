@@ -3,20 +3,18 @@ import datetime
 from datetime import datetime
 from datetime import date
 from datetime import timedelta
-from functions import Water
+from functions import Water, Sanity
 
 breakline = "\n-----------------------------------------------------------------\n"
 section_break = f"{breakline}{breakline}"
 
 def main():
-    print(section_break)
-    print(f"""1 - Display Current Totals{breakline}2 - Display Closest Expiration Date{breakline}\
+    while True:
+        print(section_break)
+        print(f"""1 - Display Current Totals{breakline}2 - Display Closest Expiration Date{breakline}\
 3 - Add Inventory{breakline}4 - Remove Inventory{breakline}5 - Get Data Breakdown{breakline}\
 e - EXIT{breakline}
-        """)
-    print(section_break)
-    # if choice 1 : Display current total
-    while True:
+                """)
         choice = input("Enter the number coresponding to the desired action --> ")
         if choice == '1':
             print(f"{breakline}There is a total of {get_total()} gal currently stored{breakline}")
@@ -64,32 +62,38 @@ def next_expiration():
 
 
 def add_supply():
-    MEDIUMS = ["tall_can", "short_can", "water_brick"]
-    inp_med = ((input("Medium: ")).lower()).strip()
-    if inp_med in MEDIUMS:
-        med_amt = int(((input("Amount to add: "))).strip())
-        inp_exp = (input("Expiration: ")).strip()
-        add_line = dict(medium=inp_med, medium_num=med_amt, expiration=inp_exp)
-        water = Water()
-        file = water.get_supply_list()
-        file.append(add_line)
-        water.rewrite_file(file)
+    water = Water()
+    sanity = Sanity()
+    add_med = ((input("Medium: ")).lower()).strip()
+    add_amt = int(((input("Amount to add: "))).strip())
+    add_exp = (input("Expiration: ")).strip()
+    add_line = dict(medium=add_med, medium_num=add_amt, expiration=add_exp)
+    if sanity.add_check(add_line):
+        try:
+            supply_list = water.get_supply_list()
+            supply_list.append(add_line)
+            water.rewrite_file(supply_list)
+            print(f"{add_line} successfully added to ...")
+        except("Something went wrong."):
+            add_supply()
     else:
-        print("Please enter a valid medium")
         add_supply()
 
-
 def remove_supply():
-    inp_med = input("Medium: ")
-    med_amt = int(input("Amount Before: "))
-    rmv = int(input("Removed: "))
-    inp_exp = input("Expiration: ")
-    match = {'medium': inp_med, 'medium_num': med_amt, 'expiration': inp_exp}
-
     water = Water()
-    water.remove(match, rmv)
-
-
+    sanity = Sanity()
+    rmv_med = input("Medium: ")
+    before_amt = int(input("Amount Before: "))
+    rmv_amt = int(input("Removed: "))
+    rmv_exp = input("Expiration: ")
+    remove_line = {'medium': rmv_med, 'medium_num': before_amt, 'expiration': rmv_exp}
+    if sanity.remove_check(remove_line):
+        try:
+            water.remove(remove_line, rmv_amt)
+        except("Something went wrong"):
+            remove_supply()
+    else:
+        remove_supply()
 
 def data_breakdown():
     GOAL_AMOUNT = 3 * 14
@@ -106,6 +110,8 @@ def data_breakdown():
         alert = f"Supply goal reached"
 
     return total_water, pppd, days_allowed, alert
+
+
 
 
 if __name__ == "__main__":
