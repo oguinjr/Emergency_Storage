@@ -1,8 +1,3 @@
-import csv
-import datetime
-from datetime import datetime
-from datetime import date
-from datetime import timedelta
 from functions import Water, Sanity
 
 breakline = "\n-----------------------------------------------------------------\n"
@@ -61,23 +56,37 @@ def next_expiration():
     return water.next_exp()
 
 
+def add_supply_check():
+    try:
+        sanity = Sanity()
+        add_med = ((input("Medium: ")).lower()).strip()
+        if not sanity.medium_check(add_med):
+            raise Exception("Improper Medium")
+        add_amt = int(((input("Amount to add: "))).strip())
+        if not sanity.amount_check(add_amt):
+            raise Exception("Improper Medium Number")
+        add_exp = (input("Expiration: ")).strip()
+        if not sanity.date_check(add_exp):
+            raise Exception("Improper Date Format")
+        add_line = dict(medium=add_med, medium_num=add_amt, expiration=add_exp)
+        return add_line
+    except:
+        return False
+
 def add_supply():
-    water = Water()
-    sanity = Sanity()
-    add_med = ((input("Medium: ")).lower()).strip()
-    add_amt = int(((input("Amount to add: "))).strip())
-    add_exp = (input("Expiration: ")).strip()
-    add_line = dict(medium=add_med, medium_num=add_amt, expiration=add_exp)
-    if sanity.add_check(add_line):
-        try:
+    while True:
+        ########### THIS IS TRICKY. I DONT KNOW IF IT MAKES SENSE ####################
+        if add_supply_check():
+            add_line = add_supply_check()
+            water = Water()
             supply_list = water.get_supply_list()
             supply_list.append(add_line)
             water.rewrite_file(supply_list)
-            print(f"{add_line} successfully added to ...")
-        except("Something went wrong."):
-            add_supply()
-    else:
-        add_supply()
+
+        else:
+            print("Something went wrong")
+            continue
+
 
 def remove_supply():
     water = Water()
