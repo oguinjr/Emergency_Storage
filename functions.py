@@ -76,21 +76,19 @@ class Sanity:
         self.MEDIUMS = ["tall_can", "short_can", "water_brick"]
 
 
-    def medium_check(self, supply_list):
-        if supply_list['medium'] in self.MEDIUMS:
-            None
+    def medium_check(self, medium):
+        if medium in self.MEDIUMS:
+            return True
         else:
             print("Please enter a valid medium")
             return False
-        return True
 
     def amount_check(self, medium_num):
-        if medium_num.isinteger():
-            None
+        if isinstance(medium_num, int):
+            return True
         else:
             print("Please Enter An Integer for Medium Amount")
             return False
-        return True
 
     def date_check(self, inp_date):
         try:
