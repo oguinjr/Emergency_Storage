@@ -56,33 +56,32 @@ def next_expiration():
     return water.next_exp()
 
 
-def add_supply_check():
+def add_supply_check(add_med, add_amt, add_exp):
     try:
         sanity = Sanity()
-        add_med = ((input("Medium: ")).lower()).strip()
         if not sanity.medium_check(add_med):
             raise Exception("Improper Medium")
-        add_amt = int(((input("Amount to add: "))).strip())
         if not sanity.amount_check(add_amt):
             raise Exception("Improper Medium Number")
-        add_exp = (input("Expiration: ")).strip()
         if not sanity.date_check(add_exp):
             raise Exception("Improper Date Format")
-        add_line = dict(medium=add_med, medium_num=add_amt, expiration=add_exp)
-        return add_line
+        return True
     except:
         return False
 
 def add_supply():
     while True:
-        ########### THIS IS TRICKY. I DONT KNOW IF IT MAKES SENSE ####################
-        if add_supply_check():
-            add_line = add_supply_check()
+        add_med = ((input("Medium: ")).lower()).strip()
+        add_amt = int(((input("Amount to add: "))).strip())
+        add_exp = (input("Expiration: ")).strip()
+
+        if add_supply_check(add_med, add_amt, add_exp):
+            add_line = dict(medium=add_med, medium_num=add_amt, expiration=add_exp)
             water = Water()
             supply_list = water.get_supply_list()
             supply_list.append(add_line)
             water.rewrite_file(supply_list)
-
+            break
         else:
             print("Something went wrong")
             continue
