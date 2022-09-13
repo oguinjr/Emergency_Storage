@@ -76,22 +76,33 @@ class Sanity:
         self.MEDIUMS = ["tall_can", "short_can", "water_brick"]
 
 
-    def add_check(self, supply_list):
+    def medium_check(self, supply_list):
         if supply_list['medium'] in self.MEDIUMS:
             None
         else:
             print("Please enter a valid medium")
             return False
-        if (supply_list['medium_num']).isinteger():
-            None
-        else:
-            print("Please enter a valid integer for amount of added medium.")
-            return False
-        """if supply_list['expiration'] # Is in a valid date format and later than today:
-            None
-        else:
-            print"""
         return True
+
+    def amount_check(self, medium_num):
+        if medium_num.isinteger():
+            None
+        else:
+            print("Please Enter An Integer for Medium Amount")
+            return False
+        return True
+
+    def date_check(self, inp_date):
+        try:
+            ((datetime.strptime(inp_date, "%Y-%m-%d")).date())
+            return True
+        except ValueError:
+            print("At least I know that the test did the test")
+            return False
+
+
+
+
 
     def remove_check(self, remove_line):
         if remove_line['medium'] in self.MEDIUMS:
