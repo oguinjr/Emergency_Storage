@@ -80,14 +80,12 @@ class Sanity:
         if medium in self.MEDIUMS:
             return True
         else:
-            print("Please enter a valid medium")
             return False
 
     def amount_check(self, medium_num):
         if isinstance(medium_num, int):
             return True
         else:
-            print("Please Enter An Integer for Medium Amount")
             return False
 
     def date_check(self, inp_date):
@@ -95,8 +93,14 @@ class Sanity:
             ((datetime.strptime(inp_date, "%Y-%m-%d")).date())
             return True
         except ValueError:
-            print("At least I know that the test did the test")
             return False
+
+    def size_check(self, bfr_amt, rmv_amt):
+        if bfr_amt >= rmv_amt:
+            return True
+        else:
+            return False
+
 
 
 
