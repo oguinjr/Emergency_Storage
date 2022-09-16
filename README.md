@@ -28,7 +28,10 @@ Because this is my first creative attempt in programming I welcome criticism and
   ...TODO...
   #### Select From Main Menu
   After starting the program 5 options will be presented in the form of a line starting with its choice number and a sentence describing the action to take.
+  
   If "1" is selected, the program will display the current volume of water in storage in gallons.
+  
+  ```1```
   
   If "2" is selected, the program will display the next closest expiration date and how many days until it comes.
   
