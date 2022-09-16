@@ -16,7 +16,6 @@ class Water:
             for line in csv_reader:
                 self.supply_list.append({"medium": line["medium"], "medium_num": line["medium_num"], "expiration": line["expiration"]})
 
-
     def get_supply_list(self):
         return self.supply_list
 
@@ -31,8 +30,6 @@ class Water:
                 total += float(int(entry["medium_num"]) * self.VOLUMES["BRICK_VOL"])
         return round(total)
 
-
-    # I should find a better name for this 'match' variable as I have done elsewhere
     def remove(self, match, rmv_amt):
         supply_list = self.get_supply_list()
         for line in supply_list:
@@ -45,8 +42,6 @@ class Water:
                 self.rewrite_file(supply_list)
                 break
 
-
-    ################### THIS DOES NOT ALLOW FOR MULTIPLE DATES THAT ARE THE SAME ######################
     def next_exp(self):
         # create a list of expiration dates from csv file
         exp_list = [x['expiration'] for x in self.get_supply_list()]
@@ -70,47 +65,3 @@ class Water:
             writer = csv.DictWriter(csv_file, fieldnames=["medium", "medium_num", "expiration"])
             writer.writeheader()
             writer.writerows(new_file_list)
-
-class Sanity:
-    def __init__(self):
-        self.MEDIUMS = ["tall_can", "short_can", "water_brick"]
-
-
-    def medium_check(self, medium):
-        if medium in self.MEDIUMS:
-            return True
-        else:
-            return False
-
-    def amount_check(self, medium_num):
-        if isinstance(medium_num, int):
-            return True
-        else:
-            return False
-
-    def date_check(self, inp_date):
-        try:
-            ((datetime.strptime(inp_date, "%Y-%m-%d")).date())
-            return True
-        except ValueError:
-            return False
-
-    def size_check(self, bfr_amt, rmv_amt):
-        if bfr_amt >= rmv_amt:
-            return True
-        else:
-            return False
-
-
-
-
-
-
-    def remove_check(self, remove_line):
-        if remove_line['medium'] in self.MEDIUMS:
-            None
-        else:
-            print("Please enter a valid medium")
-            return False
-
-        return True
