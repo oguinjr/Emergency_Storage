@@ -26,8 +26,13 @@ Because this is my first creative attempt in programming I welcome criticism and
   ...TODO...
   #### Select From Main Menu
   After starting the program 5 options will be presented in the form of a line starting with its choice number and a sentence describing the action to take.
-  If ####"1" is selected, the program will display the current volume of water in storage in gallons.
-  if "2" is selected
+  If "1" is selected, the program will display the current volume of water in storage in gallons.
+  if "2" is selected, the program will display the next closest expiration date and how many days until it comes.
+  If "3" is selected, the program will request information about a unit of water entry to be added to the storage csv.
+  If "4" is selected, the program will request information about a unit of water of which some amount has been removed from storage to be documented in the storage csv.
+  If "5" is selected, the program will display information about the water supply and how that might effect the users of it according to standard recomendations for water consumption during an emergency.
+  If "e" is selected, the program will say "goodbye" and exit.
+  Following each selection and completion of task, the program will return to the main screeen so that another selection can be made.
   
 
 #### Topics Used From Class
