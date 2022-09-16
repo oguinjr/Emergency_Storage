@@ -1,7 +1,10 @@
-from functions import Water, Sanity
+from functions import Water
+import datetime
+from datetime import datetime
 
 breakline = "\n-----------------------------------------------------------------\n"
 section_break = f"{breakline}{breakline}"
+MEDIUMS = ["tall_can", "short_can", "water_brick"]
 
 def main():
     while True:
@@ -16,7 +19,8 @@ e - EXIT{breakline}
         # if choice 2 : Return the closest expiration data, medium, amount and days until
         elif choice == '2':
             closest_date_obj, medium, amount, days = next_expiration()
-            print(f"{breakline}On {str(closest_date_obj)} there are {amount} of {medium}  expiring.\nThat is in {days} days!{breakline}")
+            print(breakline)
+            print(f"On {str(closest_date_obj)} there are {amount} of {medium}  expiring.\nThat is in {days} days!{breakline}")
         # if choice 3 : add supply to csv and print new total
         elif choice == '3':
             print()
@@ -27,11 +31,13 @@ e - EXIT{breakline}
         elif choice == '4':
             print()
             remove_supply()
+            print(breakline)
             print()
             print(f"Now there is {get_total()} total gallons stored.{breakline}")
         # if choice 5: data breakdown
         elif choice == '5':
             print()
+            print(breakline)
             total_water, pppd, days_allowed, alert = data_breakdown()
             print(f"Right now there is a total of {total_water} gallons of water in storage\n\n")
             print(f"That will provide {pppd} gal per person for two weeks.\n\n")
@@ -55,78 +61,72 @@ def next_expiration():
     water = Water()
     return water.next_exp()
 
-
-def add_supply_check(add_med, add_amt, add_exp):
-    try:
-        sanity = Sanity()
-        if not sanity.medium_check(add_med):
-            print("Added Medium is invalid")
-            raise Exception()
-        if not sanity.amount_check(add_amt):
-            print("Added Medium Amount Invalid.\nPlease Enter Integer Amount.")
-            raise Exception()
-        if not sanity.date_check(add_exp):
-            print("Expiration date for added medium should be in the form '%Y-%M-%d'")
-            raise Exception()
-        return True
-    except:
-        return False
-
-def remove_supply_check(rmv_med, bfr_amt, rmv_amt, rmv_exp):
-    try:
-        sanity = Sanity()
-        if not sanity.medium_check(rmv_med):
-            print("Removed Medium is Invalid")
-            raise Exception()
-        if not sanity.amount_check(bfr_amt):
-            print("Before Amount Not A Valid Integer")
-            raise Exception()
-        if not sanity.amount_check(rmv_amt):
-            print("Removed Amount Not A Valid Integer")
-            raise Exception()
-        if not sanity.date_check(rmv_exp):
-            print("Expiration date for removed medium should be in the form '%Y-%M-%d'")
-            raise Exception()
-        if not sanity.size_check(bfr_amt, rmv_amt):
-            print("Removed Amount Larger Than Before Amount")
-            raise Exception()
-        return True
-    except:
-        return False
-
 def add_supply():
     while True:
-        add_med = ((input("Medium: ")).lower()).strip()
-        add_amt = int(((input("Amount to add: "))).strip())
-        add_exp = (input("Expiration: ")).strip()
-
-        if add_supply_check(add_med, add_amt, add_exp):
-            add_line = dict(medium=add_med, medium_num=add_amt, expiration=add_exp)
-            water = Water()
-            supply_list = water.get_supply_list()
-            supply_list.append(add_line)
-            water.rewrite_file(supply_list)
+        add_med = input("Medium: ").lower().strip()
+        if add_med in MEDIUMS:
             break
-        else:
-            print("Something went wrong while adding")
-            continue
+        print("Invalid Medium")
+
+    while True:
+        try:
+            add_amt = int((input("Amount to add: ")).strip())
+            break
+        except ValueError:
+            pass
+        print(f"Invalid amount.\nPlease enter a positive integer for{add_med}.")
+
+    while True:
+        add_exp = (input("Expiration Date: ")).strip()
+        try:
+            datetime.strptime(add_exp, '%Y-%M-%d').date()
+            break
+        except ValueError:
+            pass
+        print("Enter a date in the format '%Y-%M-%d'")
+
+    add_line = dict(medium=add_med, medium_num=add_amt, expiration=add_exp)
+    water = Water()
+    supply_list = water.get_supply_list()
+    supply_list.append(add_line)
+    water.rewrite_file(supply_list)
 
 
 def remove_supply():
     while True:
-        rmv_med = input("Medium: ")
-        before_amt = int(input("Amount Before: "))
-        rmv_amt = int(input("Removed: "))
-        rmv_exp = input("Expiration: ")
-
-        if remove_supply_check(rmv_med, before_amt, rmv_amt, rmv_exp):
-            water = Water()
-            remove_line = dict(medium=rmv_med, medium_num=before_amt, expiration=rmv_exp)
-            water.remove(remove_line, rmv_amt)
+        rmv_med = input("Medium To Remove: ").lower().strip()
+        if rmv_med in MEDIUMS:
             break
-        else:
-            print("Something went wrong with the subtracting.")
-            continue
+        print("Invalid Medium")
+
+    while True:
+        try:
+            before_amt = int((input("Amount Before: ")).strip())
+            break
+        except ValueError:
+            pass
+        print("Enter the amount before removing as positive integer.")
+
+    while True:
+        try:
+            rmv_amt = int((input("How Much To Remove: ")).strip())
+            break
+        except ValueError:
+            pass
+        print("Please Enter A Positive Integer Amount")
+
+    while True:
+        try:
+            rmv_exp = input("Removed Expiration Date: ")
+            break
+        except ValueError:
+            pass
+        print("Please Enter A Valid Expiration Date in the form '%Y-%M-%d'")
+        
+    water = Water()
+    remove_line = dict(medium=rmv_med, medium_num=before_amt, expiration=rmv_exp)
+    water.remove(remove_line, rmv_amt)
+
 
 def data_breakdown():
     GOAL_AMOUNT = 3 * 14
