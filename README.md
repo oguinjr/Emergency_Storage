@@ -3,6 +3,8 @@
 ### Video Demo: <URL HERE>
 
 ### Description
+  The main file project.py uses several conditional functions to store and retrieve information about food and water emergency supplies. Each line on the two csv files contains comma seperated descriptions of a unit of the real wold supply. 5 options are presented after running the main file "get supply total", "get next expiration", "add supply", "get breakdown", and "exit".
+If statements direct to the respective functions. Following the user's completion of each request the program self references tha main() function so that the original options are available again. 
 
 ### Background
 
@@ -54,22 +56,6 @@ Because this is my first creative attempt in programming I welcome criticism and
 - datetime
 - csv
 - sys
-
-#### Description
-
-The main file project.py uses several conditional functions to store and retrieve information about food and water emergency supplies. Each line on the two csv files contains comma seperated descriptions of a unit of the real wold supply. 5 options are presented after running the main file "get supply total", "get next expiration", "add supply", "get breakdown", and "exit".
-If statements direct to the respective functions. Following the user's completion of each request the program self references tha main() function so that the original options are available again. 
-After opening the project.py file and choose a prompt, type the corresponding number or letter and press return. 
-- If 1 was selected a printout will appear displaying total volume in storage. 
-- If 2, the closest date a unit of food or water is expiring will be displayed along with days remaining before that date. 
-- If 3, a promp corresponding to each collumn of the csv file will request that collumns information, for water these prompts will be, "type", "medium", "medium amount", and "expiration". For food they will be "type", "medium", "calories", "volume", "category", "number of servings", TODO ...
-- If 4, a printout will display for "total"
-"time"
-"need"
-"category"
-TODO...
-
-
 
 
 ### Author
