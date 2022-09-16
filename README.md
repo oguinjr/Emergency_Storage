@@ -20,6 +20,11 @@ Because this is my first creative attempt in programming I welcome criticism and
 - get days current supply should last
 - get supply deficit
 - get soonest expiration date
+  
+ ### Usage
+  #### Start Program
+  #### Select From Main Menu
+  
 
 #### Topics Used From Class
 
