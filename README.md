@@ -27,7 +27,7 @@ Because this is my first creative attempt in programming I welcome criticism and
   #### Start Program
   ...TODO...
   #### Select From Main Menu
-  '''bash
+```
 1 - Display Current Totals
 -----------------------------------------------------------------
 2 - Display Closest Expiration Date
@@ -39,7 +39,8 @@ Because this is my first creative attempt in programming I welcome criticism and
 5 - Get Data Breakdown
 -----------------------------------------------------------------
 e - EXIT
------------------------------------------------------------------'''
+-----------------------------------------------------------------
+```
   After starting the program 5 options will be presented in the form of a line starting with its choice number and a sentence describing the action to take.
   
   If "1" is selected, the program will display the current volume of water in storage in gallons.
