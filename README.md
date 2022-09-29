@@ -79,20 +79,35 @@ e - EXIT
 - sys
 
 #### Test File
+  
 I created a test file to accomodate the main file to check that each function opperates normally.
+  
 Part of the testing includes returning csv files to previous states.
+  
 I am sure there is a convention for this type of scenario but I am not aware of it yet.
+  
 ##### Test File Functions
+  
 -###### test_data_breakdown
+  
 This function makes sure that a csv file of a particular state returns the correct data
+  
 -###### test_get_total
+  
 This function checks that the particular csv state returns total volume in gallons
+  
 -##### test_next_expiration
+  
 This function returns the closest expiration date
+  
 -###### test_add_supply
+  
 The function will pass if a csv file with the test line added matches the csv file with the line added.
+  
 -###### test_remove_supply
+  
 The function will pass if a csv file with the test line remove matches the csv file with the line removed.
+  
 I wonder if this is how I should test add as well
 
 ### Author
