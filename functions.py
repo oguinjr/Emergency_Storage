@@ -8,7 +8,7 @@ from datetime import timedelta
 
 class Water:
     VOLUMES = {'TALL_CAN_VOL': 0.1238483, 'SHORT_CAN_VOL': 0.09007152, 'BRICK_VOL': 3.5}
-    def __init__(self, filename="/workspaces/22947782/project/supply.csv"):
+    def __init__(self, filename="Emergency_Storage/supply.csv"):
         self.supply_list = []
         self.filename = filename
         with open(filename, 'r', newline='') as csv_file:
