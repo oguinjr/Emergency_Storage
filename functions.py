@@ -1,3 +1,5 @@
+# This file is no longer in use and its use has been replaced by main.py
+
 import csv
 import sys
 import datetime
